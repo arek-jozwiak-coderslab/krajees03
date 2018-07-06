@@ -21,7 +21,7 @@ public class Main3 {
                 String description = rs.getString("description");
                 int id = rs.getInt("id");
                 System.out.println(description + " ");
-                
+
                 try (PreparedStatement preparedStatement = conn.prepareStatement(productsSql)) {
                     preparedStatement.setInt(1, id);
                     try (ResultSet rs2 = preparedStatement.executeQuery()) {
