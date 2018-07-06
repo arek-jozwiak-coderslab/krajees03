@@ -16,40 +16,7 @@ public class ProductDao {
     private static final String UPDATE_PRODUCT_QUERY = "UPDATE	products SET name = ? , description = ?, price = ? WHERE	id = ?";
 
 
-    public void removeProduct(int id) {
-        try (Connection connection = DbUtil.getConnection();
-             PreparedStatement preparedStatement = connection.prepareStatement(DELETE_PRODUCT_QUERY)) {
-            ;
-            preparedStatement.setInt(1, id);
-            if (!preparedStatement.execute()) {
-                throw new NotFoundException("No product with id");
-            }
-        } catch (SQLException ex) {
-            ex.printStackTrace();
-        }
-    }
 
-    public Product getById(int id) {
-        Product product = new Product();
-        try (Connection connection = DbUtil.getConnection();
-
-             PreparedStatement preparedStatement = connection.prepareStatement(READ_PRODUCT_QUERY)) {
-            preparedStatement.setInt(1, id);
-            try (ResultSet resultSet = preparedStatement.executeQuery()) {
-                while (resultSet.next()) {
-                    product.setId(resultSet.getInt("id"));
-                    product.setName(resultSet.getString("name"));
-                    product.setPrice(resultSet.getDouble("price"));
-                    product.setDescription(resultSet.getString("description"));
-
-                }
-            }
-        } catch (SQLException ex) {
-            ex.printStackTrace();
-        }
-
-        return product;
-    }
 
 
     public Product read(Integer id) {
